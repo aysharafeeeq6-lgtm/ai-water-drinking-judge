@@ -54,7 +54,7 @@ xdg-open index.html
 
 ### Project Documentation
 For Software:
-
+-----
 # Screenshots (Add at least 3)
 
 ### 1. Suspect Intake & Evidence Chamber
