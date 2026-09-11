@@ -6,7 +6,7 @@
 ### Team Name: [Team Name]
 
 ### Team Members
-- Team Lead: [Your Name] - [College / Institution]
+- Team Lead: [aysha] - [sree narayana guru collage of engineering and technology]
 - Member 2: [Teammate Name] - [College / Institution]
 
 ### Project Description
