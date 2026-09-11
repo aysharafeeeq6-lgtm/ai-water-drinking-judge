@@ -68,6 +68,24 @@ For Software:
 ### 3. Opening Cover / Hackathon Splash Screen
 ![Opening Hackathon Cover Screen](./Screenshot%202026-09-11%20225915.png)
 *The pre-courtroom cover screen greeting suspects with "💧 WATER JUDGE 🤖 - Because apparently drinking water needs AI."*
+### Project Demo
+# Video
+https://drive.google.com/drive/folders/1BNgX3biAcTSL-hhPaogJnvchE3ZtO8yL?usp=sharing
+
+# Additional Demos
+[Add any extra demo materials/links]
+
+## Team Contributions
+- [Name 1]: [Specific contributions]
+- [Name 2]: [Specific contributions]
+- [Name 3]: [Specific contributions]
+
+---
+Made with ❤️ at TinkerHub Useless Projects 
+
+![Static Badge](https://img.shields.io/badge/TinkerHub-24?color=%23000000&link=https%3A%2F%2Fwww.tinkerhub.org%2F)
+![Static Badge](https://img.shields.io/badge/UselessProjects--26-26?link=https%3A%2F%2Ftinkerhub.org%2Fevents%2F1M8ORET9A1%2Fuseless-projects-3.0)
+
 
 ---
 *Made with 💧 and 0 medical credentials for the Hackathon.*
