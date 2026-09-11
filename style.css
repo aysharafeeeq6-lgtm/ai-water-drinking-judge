@@ -1,0 +1,870 @@
+/* ==========================================================
+   AI Water Drinking Judge - Stylesheet (style.css)
+   ==========================================================
+   Theme: Vibrant Oceanic Neon & Comedy Hackathon Courtroom
+   ========================================================== */
+
+/* ----------------------------------------------------------
+   1. CSS VARIABLES (Color Palette & Design Tokens)
+   ---------------------------------------------------------- */
+:root {
+  /* Hydration Theme Colors */
+  --bg-dark: #070e20;
+  --bg-card: rgba(18, 30, 66, 0.75);
+  --bg-card-hover: rgba(28, 48, 105, 0.85);
+  --border-color: rgba(56, 189, 248, 0.28);
+  --border-focus: #38bdf8;
+
+  /* Accent Colors */
+  --primary-water: #0284c7;
+  --primary-light: #38bdf8;
+  --accent-cyan: #06b6d4;
+  --accent-amber: #f59e0b;
+  --accent-rose: #f43f5e;
+  --accent-glow: rgba(56, 189, 248, 0.35);
+
+  /* Status Colors */
+  --status-crime: #f43f5e;
+  --status-weird: #a855f7;
+  --status-chug: #06b6d4;
+  --status-gold: #fbbf24;
+
+  /* Text Colors */
+  --text-main: #f8fafc;
+  --text-muted: #94a3b8;
+  --text-dark: #0f172a;
+
+  /* Layout */
+  --radius-lg: 20px;
+  --radius-md: 12px;
+  --radius-sm: 8px;
+  --transition: all 0.25s ease;
+}
+
+/* ----------------------------------------------------------
+   2. GLOBAL RESETS & BASE STYLING
+   ---------------------------------------------------------- */
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: 'Outfit', -apple-system, BlinkMacSystemFont, sans-serif;
+  background-color: var(--bg-dark);
+  color: var(--text-main);
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 24px 16px;
+  position: relative;
+  overflow-x: hidden;
+}
+
+/* Ambient glow orbs in background */
+.glow {
+  position: fixed;
+  border-radius: 50%;
+  filter: blur(110px);
+  z-index: 0;
+  pointer-events: none;
+}
+
+.glow-1 {
+  width: 400px;
+  height: 400px;
+  background: radial-gradient(circle, rgba(14, 165, 233, 0.22), transparent);
+  top: -80px;
+  left: -80px;
+}
+
+.glow-2 {
+  width: 450px;
+  height: 450px;
+  background: radial-gradient(circle, rgba(168, 85, 247, 0.18), transparent);
+  bottom: -100px;
+  right: -100px;
+}
+
+/* ----------------------------------------------------------
+   3. APP CONTAINER & HEADER
+   ---------------------------------------------------------- */
+.app-container {
+  width: 100%;
+  max-width: 1060px;
+  position: relative;
+  z-index: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 22px;
+}
+
+.app-header {
+  text-align: center;
+}
+
+.badge {
+  display: inline-block;
+  background: rgba(244, 63, 94, 0.15);
+  color: #fb7185;
+  font-size: 0.82rem;
+  font-weight: 700;
+  padding: 6px 16px;
+  border-radius: 999px;
+  border: 1px solid rgba(244, 63, 94, 0.35);
+  margin-bottom: 10px;
+  letter-spacing: 0.8px;
+  text-transform: uppercase;
+}
+
+.app-header h1 {
+  font-size: clamp(2rem, 4.2vw, 2.9rem);
+  font-weight: 800;
+  background: linear-gradient(135deg, #ffffff 0%, #38bdf8 50%, #c084fc 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  margin-bottom: 6px;
+  letter-spacing: -0.5px;
+}
+
+.subtitle {
+  color: var(--text-muted);
+  font-size: 1rem;
+  max-width: 620px;
+  margin: 0 auto;
+  line-height: 1.5;
+}
+
+/* ----------------------------------------------------------
+   4. MAIN GRID LAYOUT
+   ---------------------------------------------------------- */
+.content-grid {
+  display: grid;
+  grid-template-columns: 1fr 1.2fr;
+  gap: 22px;
+}
+
+/* Glassmorphism Card Base */
+.card {
+  background: var(--bg-card);
+  backdrop-filter: blur(18px);
+  -webkit-backdrop-filter: blur(18px);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-lg);
+  padding: 26px;
+  box-shadow: 0 16px 36px -8px rgba(0, 0, 0, 0.55);
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
+
+.card h2 {
+  font-size: 1.35rem;
+  font-weight: 700;
+  color: var(--text-main);
+  letter-spacing: -0.3px;
+}
+
+.section-desc {
+  font-size: 0.88rem;
+  color: var(--text-muted);
+  margin-top: -12px;
+}
+
+/* ----------------------------------------------------------
+   5. FORM INPUTS & STEPPER
+   ---------------------------------------------------------- */
+.form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 7px;
+  margin-bottom: 16px;
+}
+
+.form-group label {
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: #e2e8f0;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.hint {
+  font-size: 0.76rem;
+  color: var(--text-muted);
+  font-weight: 400;
+}
+
+/* Text and Number Inputs */
+input[type="text"],
+input[type="number"] {
+  background: rgba(10, 18, 40, 0.75);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-md);
+  padding: 12px 16px;
+  font-size: 1.05rem;
+  color: var(--text-main);
+  outline: none;
+  font-family: inherit;
+  transition: var(--transition);
+}
+
+input[type="text"] {
+  width: 100%;
+}
+
+input[type="text"]:focus,
+input[type="number"]:focus {
+  border-color: var(--border-focus);
+  box-shadow: 0 0 0 3px var(--accent-glow);
+}
+
+/* Stepper */
+.stepper-wrapper {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.step-btn {
+  background: rgba(56, 189, 248, 0.15);
+  border: 1px solid var(--border-color);
+  color: var(--primary-light);
+  font-size: 1.4rem;
+  width: 48px;
+  height: 48px;
+  border-radius: var(--radius-md);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: var(--transition);
+  user-select: none;
+}
+
+.step-btn:hover {
+  background: var(--primary-water);
+  color: #ffffff;
+  transform: translateY(-2px);
+}
+
+.step-btn:active {
+  transform: translateY(1px);
+}
+
+/* Activity Radio Selectors */
+.activity-options {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 10px;
+}
+
+.activity-card {
+  cursor: pointer;
+  position: relative;
+}
+
+.activity-card input[type="radio"] {
+  position: absolute;
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+.activity-content {
+  background: rgba(10, 18, 40, 0.65);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-md);
+  padding: 12px 8px;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+  transition: var(--transition);
+}
+
+.activity-icon {
+  font-size: 1.35rem;
+}
+
+.activity-title {
+  font-size: 0.88rem;
+  font-weight: 700;
+  color: var(--text-main);
+}
+
+.activity-sub {
+  font-size: 0.7rem;
+  color: var(--text-muted);
+  line-height: 1.2;
+}
+
+.activity-card input[type="radio"]:checked + .activity-content {
+  background: rgba(14, 165, 233, 0.22);
+  border-color: var(--primary-light);
+  box-shadow: 0 0 14px var(--accent-glow);
+  transform: translateY(-2px);
+}
+
+/* ----------------------------------------------------------
+   6. PRIMARY ACTION BUTTONS
+   ---------------------------------------------------------- */
+.primary-btn {
+  background: linear-gradient(135deg, #0284c7 0%, #3b82f6 50%, #8b5cf6 100%);
+  color: #ffffff;
+  border: none;
+  border-radius: var(--radius-md);
+  padding: 15px 24px;
+  font-size: 1.05rem;
+  font-weight: 700;
+  cursor: pointer;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  box-shadow: 0 6px 20px rgba(2, 132, 199, 0.45);
+  transition: var(--transition);
+  margin-top: 6px;
+  letter-spacing: 0.3px;
+}
+
+.primary-btn:hover {
+  background: linear-gradient(135deg, #0369a1 0%, #2563eb 50%, #7c3aed 100%);
+  box-shadow: 0 8px 26px rgba(139, 92, 246, 0.45);
+  transform: translateY(-2px);
+}
+
+.primary-btn:active {
+  transform: translateY(1px);
+}
+
+/* ----------------------------------------------------------
+   7. INTERACTIVE WATER GLASS VISUAL
+   ---------------------------------------------------------- */
+.glass-display-area {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  padding: 6px 0;
+}
+
+.glass-container {
+  width: 135px;
+  height: 205px;
+  position: relative;
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.12), rgba(255, 255, 255, 0.03));
+  border: 3px solid rgba(255, 255, 255, 0.35);
+  border-top: none;
+  border-radius: 0 0 24px 24px;
+  box-shadow: inset 0 -10px 22px rgba(2, 132, 199, 0.35),
+              0 14px 28px rgba(0, 0, 0, 0.45);
+  overflow: hidden;
+}
+
+.glass-rim {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 10px;
+  border: 2px solid rgba(255, 255, 255, 0.5);
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.1);
+  z-index: 4;
+}
+
+.glass-ticks {
+  position: absolute;
+  right: 8px;
+  top: 15px;
+  bottom: 25px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  color: rgba(255, 255, 255, 0.55);
+  font-size: 0.74rem;
+  font-weight: 700;
+  z-index: 5;
+  pointer-events: none;
+}
+
+.glass-ticks span::before {
+  content: "—";
+  margin-right: 4px;
+  opacity: 0.6;
+}
+
+.water-liquid {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 40%;
+  background: linear-gradient(180deg, #38bdf8 0%, #0284c7 70%, #0369a1 100%);
+  transition: height 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+  z-index: 2;
+  box-shadow: inset 0 2px 10px rgba(255, 255, 255, 0.4);
+}
+
+.water-wave {
+  position: absolute;
+  top: -8px;
+  left: -50%;
+  width: 200%;
+  height: 16px;
+  background-repeat: repeat-x;
+  border-radius: 40%;
+  opacity: 0.7;
+}
+
+.wave-1 {
+  background: #7dd3fc;
+  animation: waveMotion 4s linear infinite;
+}
+
+.wave-2 {
+  background: #38bdf8;
+  top: -6px;
+  opacity: 0.5;
+  animation: waveMotion 2.5s linear infinite reverse;
+}
+
+@keyframes waveMotion {
+  0% { transform: translateX(0) rotate(0deg); }
+  50% { transform: translateX(-25%) rotate(180deg); }
+  100% { transform: translateX(-50%) rotate(360deg); }
+}
+
+.bubble {
+  position: absolute;
+  background: rgba(255, 255, 255, 0.6);
+  border-radius: 50%;
+  bottom: 0;
+  animation: bubbleRise 3s infinite ease-in;
+}
+
+.bubble-1 {
+  width: 6px;
+  height: 6px;
+  left: 25%;
+  animation-duration: 2.8s;
+  animation-delay: 0.2s;
+}
+
+.bubble-2 {
+  width: 8px;
+  height: 8px;
+  left: 60%;
+  animation-duration: 3.5s;
+  animation-delay: 1.2s;
+}
+
+.bubble-3 {
+  width: 5px;
+  height: 5px;
+  left: 40%;
+  animation-duration: 2.2s;
+  animation-delay: 0.7s;
+}
+
+@keyframes bubbleRise {
+  0% { transform: translateY(0); opacity: 0; }
+  30% { opacity: 0.8; }
+  100% { transform: translateY(-160px); opacity: 0; }
+}
+
+.glass-status {
+  text-align: center;
+}
+
+.current-count {
+  font-size: 1.75rem;
+  font-weight: 800;
+  color: var(--primary-light);
+}
+
+.unit {
+  font-size: 0.9rem;
+  color: var(--text-muted);
+  margin-left: 6px;
+}
+
+/* ----------------------------------------------------------
+   8. COMEDY VERDICT BOX
+   ---------------------------------------------------------- */
+.result-box {
+  background: rgba(8, 14, 34, 0.85);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-md);
+  padding: 20px;
+  min-height: 140px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  overflow: hidden;
+  box-shadow: inset 0 0 20px rgba(0, 0, 0, 0.4);
+}
+
+.placeholder-text {
+  color: var(--text-muted);
+  font-size: 0.95rem;
+  text-align: center;
+  padding: 10px;
+  line-height: 1.5;
+}
+
+.result-content {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+/* Pop animation when a new verdict is generated */
+.verdict-pop {
+  animation: popIn 0.35s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+@keyframes popIn {
+  0% { transform: scale(0.94); opacity: 0; }
+  100% { transform: scale(1); opacity: 1; }
+}
+
+/* Verdict Top Header (Name Badge & Crime Badge) */
+.verdict-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.person-tag {
+  font-size: 0.82rem;
+  font-weight: 700;
+  color: #38bdf8;
+  background: rgba(56, 189, 248, 0.12);
+  border: 1px solid rgba(56, 189, 248, 0.3);
+  padding: 4px 12px;
+  border-radius: 999px;
+  letter-spacing: 0.3px;
+}
+
+.result-badge {
+  font-size: 0.75rem;
+  font-weight: 800;
+  letter-spacing: 0.8px;
+  padding: 4px 10px;
+  border-radius: 999px;
+  background: rgba(244, 63, 94, 0.2);
+  color: #fb7185;
+  border: 1px solid currentColor;
+  text-transform: uppercase;
+}
+
+.result-title {
+  font-size: 1.35rem;
+  font-weight: 800;
+  color: #ffffff;
+  line-height: 1.3;
+}
+
+/* Sarcastic quote callout */
+.judgment-quote-box {
+  background: rgba(15, 23, 42, 0.8);
+  border-left: 4px solid #f43f5e;
+  border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
+  padding: 12px 14px;
+}
+
+.result-message {
+  font-size: 0.96rem;
+  color: #e2e8f0;
+  line-height: 1.45;
+  font-style: italic;
+}
+
+/* Comedy Stats Grid */
+.stats-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 10px;
+  background: rgba(2, 6, 23, 0.6);
+  border-radius: var(--radius-sm);
+  padding: 10px;
+}
+
+.stat-item {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  text-align: center;
+}
+
+.stat-label {
+  font-size: 0.7rem;
+  color: var(--text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.stat-value {
+  font-size: 0.88rem;
+  font-weight: 600;
+  color: var(--text-main);
+}
+
+.highlight-score {
+  color: #facc15 !important;
+  font-size: 1rem !important;
+  font-weight: 800 !important;
+}
+
+/* JUDGE ME AGAIN BUTTON */
+.rejudge-btn {
+  background: linear-gradient(135deg, #f59e0b 0%, #ef4444 100%);
+  color: #ffffff;
+  border: none;
+  border-radius: var(--radius-sm);
+  padding: 12px 18px;
+  font-size: 0.95rem;
+  font-weight: 700;
+  cursor: pointer;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  box-shadow: 0 4px 16px rgba(245, 158, 11, 0.35);
+  transition: var(--transition);
+  margin-top: 4px;
+  letter-spacing: 0.4px;
+}
+
+.rejudge-btn:hover {
+  background: linear-gradient(135deg, #d97706 0%, #dc2626 100%);
+  box-shadow: 0 6px 20px rgba(239, 68, 68, 0.5);
+  transform: translateY(-2px);
+}
+
+.rejudge-btn:active {
+  transform: translateY(1px) scale(0.99);
+}
+
+/* ----------------------------------------------------------
+   9. FOOTER DISCLAIMER
+   ---------------------------------------------------------- */
+.app-footer {
+  text-align: center;
+  padding-top: 4px;
+}
+
+.disclaimer {
+  font-size: 0.8rem;
+  color: var(--text-muted);
+  line-height: 1.4;
+  max-width: 820px;
+  margin: 0 auto;
+}
+
+/* ----------------------------------------------------------
+   10. RESPONSIVE DESIGN
+   ---------------------------------------------------------- */
+@media (max-width: 840px) {
+  .content-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .activity-options {
+    grid-template-columns: 1fr 1fr 1fr;
+  }
+}
+
+@media (max-width: 540px) {
+  body {
+    padding: 16px 8px;
+  }
+
+  .card {
+    padding: 20px 16px;
+  }
+
+  .activity-options {
+    grid-template-columns: 1fr;
+  }
+
+  .stats-grid {
+    grid-template-columns: 1fr;
+    gap: 8px;
+  }
+
+  .verdict-header {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+}
+
+/* ----------------------------------------------------------
+   11. OPENING COVER / SPLASH SCREEN STYLING
+   ---------------------------------------------------------- */
+.splash-screen {
+  position: fixed;
+  inset: 0;
+  background: radial-gradient(circle at center, #0d1a3a 0%, #050a17 100%);
+  z-index: 999;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 24px 16px;
+  animation: splashFadeIn 0.6s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  transition: opacity 0.45s cubic-bezier(0.4, 0, 0.2, 1),
+              transform 0.45s cubic-bezier(0.4, 0, 0.2, 1),
+              visibility 0.45s ease;
+}
+
+@keyframes splashFadeIn {
+  from {
+    opacity: 0;
+    transform: scale(0.96);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+/* Splash Card */
+.splash-card {
+  background: rgba(18, 30, 66, 0.88);
+  backdrop-filter: blur(24px);
+  -webkit-backdrop-filter: blur(24px);
+  border: 1px solid var(--border-color);
+  border-radius: 28px;
+  padding: 48px 36px;
+  text-align: center;
+  max-width: 560px;
+  width: 100%;
+  box-shadow: 0 25px 60px -10px rgba(0, 0, 0, 0.75),
+              0 0 35px rgba(56, 189, 248, 0.22);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 16px;
+  position: relative;
+  overflow: hidden;
+}
+
+/* Splash Badge */
+.splash-badge {
+  background: rgba(244, 63, 94, 0.16);
+  color: #fb7185;
+  border: 1px solid rgba(244, 63, 94, 0.35);
+  padding: 6px 16px;
+  border-radius: 999px;
+  font-size: 0.82rem;
+  font-weight: 800;
+  letter-spacing: 0.8px;
+  text-transform: uppercase;
+}
+
+/* Splash Title */
+.splash-title {
+  font-size: clamp(2.3rem, 6vw, 3.5rem);
+  font-weight: 900;
+  background: linear-gradient(135deg, #ffffff 0%, #38bdf8 45%, #c084fc 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  letter-spacing: -0.5px;
+  line-height: 1.15;
+}
+
+/* Splash Subtitle */
+.splash-subtitle {
+  font-size: clamp(1.05rem, 2.6vw, 1.25rem);
+  color: #cbd5e1;
+  font-weight: 500;
+  line-height: 1.45;
+  max-width: 440px;
+}
+
+/* Splash Funny Tagline */
+.splash-tagline {
+  font-size: clamp(1.05rem, 2.4vw, 1.2rem);
+  color: #38bdf8;
+  font-weight: 700;
+  font-style: italic;
+  letter-spacing: 0.4px;
+  margin-bottom: 12px;
+}
+
+/* Splash Big Center Button */
+.splash-btn {
+  background: linear-gradient(135deg, #0284c7 0%, #2563eb 50%, #7c3aed 100%);
+  color: #ffffff;
+  border: none;
+  border-radius: 999px;
+  padding: 18px 42px;
+  font-size: clamp(1.1rem, 2.6vw, 1.35rem);
+  font-weight: 800;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  box-shadow: 0 10px 30px rgba(2, 132, 199, 0.5),
+              0 0 20px rgba(124, 58, 237, 0.35);
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  letter-spacing: 0.5px;
+  animation: splashPulse 2.2s infinite ease-in-out;
+}
+
+.splash-btn:hover {
+  transform: translateY(-3px) scale(1.03);
+  box-shadow: 0 14px 38px rgba(2, 132, 199, 0.65),
+              0 0 30px rgba(124, 58, 237, 0.5);
+  background: linear-gradient(135deg, #0369a1 0%, #1d4ed8 50%, #6d28d9 100%);
+}
+
+.splash-btn:active {
+  transform: translateY(1px) scale(0.98);
+}
+
+@keyframes splashPulse {
+  0%, 100% {
+    box-shadow: 0 10px 30px rgba(2, 132, 199, 0.5),
+                0 0 20px rgba(124, 58, 237, 0.35);
+  }
+  50% {
+    box-shadow: 0 14px 40px rgba(2, 132, 199, 0.75),
+                0 0 32px rgba(124, 58, 237, 0.55);
+  }
+}
+
+/* Hidden state for smooth dismiss */
+.splash-hidden {
+  opacity: 0 !important;
+  transform: scale(1.05) translateY(-8px) !important;
+  pointer-events: none !important;
+  visibility: hidden;
+}
+
+@media (max-width: 540px) {
+  .splash-card {
+    padding: 36px 20px;
+    gap: 14px;
+  }
+
+  .splash-btn {
+    padding: 16px 28px;
+    width: 100%;
+  }
+}
+

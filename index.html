@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>AI Water Drinking Judge 💧 (Intentionally Useless)</title>
+
+  <!-- Google Font: Outfit -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&display=swap"
+    rel="stylesheet"
+  />
+
+  <!-- Linking our separate CSS stylesheet -->
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+  <!-- Background decorative light glow circles -->
+  <div class="glow glow-1"></div>
+  <div class="glow glow-2"></div>
+
+  <!-- OPENING COVER / SPLASH SCREEN -->
+  <div id="splashScreen" class="splash-screen">
+    <div class="splash-card">
+      <div class="splash-badge">🎪 COLLEGE HACKATHON EDITION 🎪</div>
+      <h1 class="splash-title">💧 WATER JUDGE 🤖</h1>
+      <p class="splash-subtitle">Because apparently drinking water needs AI.</p>
+      <p class="splash-tagline">“Prepare to be judged.”</p>
+      
+      <!-- One Large Center Action Button -->
+      <button type="button" id="startBtn" class="splash-btn">
+        <span>TAP TO GET JUDGED 👆</span>
+      </button>
+    </div>
+  </div>
+
+  <!-- Main Container -->
+  <div class="app-container">
+
+    <!-- Header Section (Comedy / Hackathon Vibe) -->
+    <header class="app-header">
+      <div class="badge">⚖️ 100% UNQUALIFIED COMEDY AI</div>
+      <h1>AI Water Drinking Judge</h1>
+      <p class="subtitle">
+        The world's most sarcastic, completely fake AI evaluating your hydration crimes. Zero medical advice, 100% judgment.
+      </p>
+    </header>
+
+    <!-- Main Content Layout -->
+    <main class="content-grid">
+
+      <!-- LEFT COLUMN: User Input Form -->
+      <section class="card form-card">
+        <h2>Suspect Identification</h2>
+        <p class="section-desc">Submit your details to face the Hydration Court:</p>
+
+        <form id="waterForm" onsubmit="return false;">
+
+          <!-- Input 0: Name -->
+          <div class="form-group">
+            <label for="nameInput">
+              <span>Suspect Name</span>
+              <span class="hint">(For official court records)</span>
+            </label>
+            <input
+              type="text"
+              id="nameInput"
+              name="userName"
+              placeholder="e.g. Alex"
+              value="Alex"
+              maxlength="30"
+              required
+            />
+          </div>
+
+          <!-- Input 1: Glasses of Water -->
+          <div class="form-group">
+            <label for="glassesInput">
+              <span>Glasses of Water Drank Today</span>
+              <span class="hint">(Watch the glass fill up! ➡️)</span>
+            </label>
+            <div class="stepper-wrapper">
+              <button type="button" class="step-btn" id="decreaseBtn" title="Minus one glass">−</button>
+              <input
+                type="number"
+                id="glassesInput"
+                name="glasses"
+                min="0"
+                max="20"
+                value="5"
+                required
+              />
+              <button type="button" class="step-btn" id="increaseBtn" title="Plus one glass">+</button>
+            </div>
+          </div>
+
+          <!-- Input 2: Age -->
+          <div class="form-group">
+            <label for="ageInput">Age (Biological or Emotional)</label>
+            <input
+              type="number"
+              id="ageInput"
+              name="age"
+              min="1"
+              max="120"
+              placeholder="e.g. 25"
+              value="24"
+              required
+            />
+          </div>
+
+          <!-- Input 3: Activity Level -->
+          <div class="form-group">
+            <label>Today's Physical Strenuousness</label>
+            <div class="activity-options">
+              <!-- Low Activity -->
+              <label class="activity-card">
+                <input type="radio" name="activity" value="low" checked />
+                <div class="activity-content">
+                  <span class="activity-icon">🛋️</span>
+                  <span class="activity-title">Low</span>
+                  <span class="activity-sub">Couch Potato</span>
+                </div>
+              </label>
+
+              <!-- Medium Activity -->
+              <label class="activity-card">
+                <input type="radio" name="activity" value="medium" />
+                <div class="activity-content">
+                  <span class="activity-icon">🚶</span>
+                  <span class="activity-title">Medium</span>
+                  <span class="activity-sub">Fridge Walking</span>
+                </div>
+              </label>
+
+              <!-- High Activity -->
+              <label class="activity-card">
+                <input type="radio" name="activity" value="high" />
+                <div class="activity-content">
+                  <span class="activity-icon">🏃</span>
+                  <span class="activity-title">High</span>
+                  <span class="activity-sub">Fleeing Duties</span>
+                </div>
+              </label>
+            </div>
+          </div>
+
+          <!-- Main Judge Button -->
+          <button type="button" id="judgeBtn" class="primary-btn">
+            <span>⚖️ Judge My Water Intake</span>
+          </button>
+        </form>
+      </section>
+
+      <!-- RIGHT COLUMN: Visual Water Glass & Hilarious Verdict Box -->
+      <section class="card visual-card">
+        <h2>Evidence Chamber</h2>
+        <p class="section-desc">Real-time water physics (or close enough):</p>
+
+        <!-- Animated Water Glass Container -->
+        <div class="glass-display-area">
+          <div class="glass-container">
+            <div class="glass-rim"></div>
+
+            <!-- Dynamic Water Liquid -->
+            <div class="water-liquid" id="waterLiquid">
+              <div class="water-wave wave-1"></div>
+              <div class="water-wave wave-2"></div>
+              <div class="bubble bubble-1"></div>
+              <div class="bubble bubble-2"></div>
+              <div class="bubble bubble-3"></div>
+            </div>
+
+            <!-- Measurement tick marks -->
+            <div class="glass-ticks">
+              <span>12</span>
+              <span>8</span>
+              <span>4</span>
+              <span>0</span>
+            </div>
+          </div>
+
+          <!-- Live glass count display -->
+          <div class="glass-status">
+            <span class="current-count" id="currentGlassesDisplay">5</span>
+            <span class="unit">glasses ingested</span>
+          </div>
+        </div>
+
+        <!-- AI Judge Result Box -->
+        <div class="result-box" id="resultBox">
+          
+          <!-- Initial Placeholder before user clicks judge -->
+          <div class="placeholder-text" id="placeholderText">
+            ⚖️ Step up to the stand and click <strong>"Judge My Water Intake"</strong> to hear your fake verdict!
+          </div>
+
+          <!-- Result Content revealed after clicking judge -->
+          <div class="result-content" id="resultContent" style="display: none;">
+            
+            <!-- Person's name verdict badge -->
+            <div class="verdict-header">
+              <span class="person-tag" id="personTag">Alex's Official Hydration Verdict</span>
+              <span class="result-badge" id="resultBadge">CRIME LEVEL: HIGH</span>
+            </div>
+
+            <!-- Funny Headline Title -->
+            <h3 class="result-title" id="resultTitle">⚖️ VERDICT: HYDRATION CRIMINAL</h3>
+
+            <!-- Sarcastic Judgment Quote -->
+            <div class="judgment-quote-box">
+              <p class="result-message" id="resultMessage">
+                "You attacked that glass like it owed you money. The water was innocent, yet you showed zero mercy."
+              </p>
+            </div>
+
+            <!-- Comedy Stats Grid -->
+            <div class="stats-grid">
+              <div class="stat-item">
+                <span class="stat-label">Technique Score</span>
+                <span class="stat-value highlight-score" id="statScore">9.2 / 10</span>
+              </div>
+              <div class="stat-item">
+                <span class="stat-label">Official Category</span>
+                <span class="stat-value" id="statCategory">Public Water Hazard</span>
+              </div>
+              <div class="stat-item">
+                <span class="stat-label">AI Confidence</span>
+                <span class="stat-value" id="statConfidence">99.9% Fabricated</span>
+              </div>
+            </div>
+
+            <!-- Action Button: JUDGE ME AGAIN -->
+            <button type="button" id="rejudgeBtn" class="rejudge-btn">
+              <span>🎲 JUDGE ME AGAIN (Roll New Verdict)</span>
+            </button>
+          </div>
+
+        </div>
+
+      </section>
+
+    </main>
+
+    <!-- Hackathon Comedy Disclaimer -->
+    <footer class="app-footer">
+      <p class="disclaimer">
+        🤡 <strong>100% Hackathon Comedy Project:</strong> This AI has zero medical credentials, does not give health advice, and literally fabricates hilarious judgments. Please drink water like a normal responsible human being!
+      </p>
+    </footer>
+
+  </div>
+
+  <!-- Linking our separate JavaScript file -->
+  <script src="script.js"></script>
+</body>
+</html>
